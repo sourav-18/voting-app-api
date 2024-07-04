@@ -23,9 +23,9 @@ mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("mongodb connecting Successfuly "))
   .catch((err) => console.log("error from mongdb Connction", err));
-app.get('/ok',(req,res)=>res.json({ok:"ok"}))
-//server lisitening
-const PORT = process.env.SERVER_PORT; 
+app.get('/',(req,res)=>res.json({success:"welcome"}))
+//server listening
+const PORT = process.env.PORT; 
 app.listen(PORT, (err) => {
   if (err) {
     console.log("error from running server", err);
