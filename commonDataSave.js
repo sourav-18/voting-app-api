@@ -11,7 +11,7 @@ const updateVoterAndElectionDetails = async (updateData) => {
     const updateVoter=await Voter.updateOne({ aadharNumbe }, { $push: { votingInfo: { electionName,electionId } } }, session);
   const updateElection=  await Election.findByIdAndUpdate(electionId , { $push: { voter: { aadharNumber,voterName,time } } }, session);
     await session.commitTransaction();
-    console.log("Transaction committed successfully");
+    // console.log("Transaction committed successfully");
   } catch (err) {
     await session.abortTransaction();
     // console.error("Error from saving data: election and voter", err);

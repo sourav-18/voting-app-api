@@ -29,14 +29,14 @@ const handleAdminLogin = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log("error from handleLoginAdmin -> ", error);
+    //console.log("error from handleLoginAdmin -> ", error);
     res.status(500).json({ message: "please try again later" });
   }
 };
 const handleNewElectionRegistration = async (req, res) => {
   try {
     const { name, description, type,periodOfTimeCandidateRegistration,periodOfTimeVoterRegistration,dateOfVotiong,resultDate } = req.body;
-    console.log(req.body);
+    //console.log(req.body);
     if (!name || !description || !type)
       return res.status(400).json({ message: "fill the data correctly" });
     const respose = await Election.create({
@@ -51,7 +51,7 @@ const handleNewElectionRegistration = async (req, res) => {
     //when i save the data in db in lastdateofrestrationSection why every time _id is pass that i dont't know
     res.status(201).json({ message: "ElectionRegistration successfuly" ,success:true});
   } catch (error) {
-    console.log("error from electonRegistration ", err);
+    //console.log("error from electonRegistration ", err);
     return res
       .status(500)
       .json({ message: "something worng try aganin later" });
@@ -92,7 +92,7 @@ const handleCalculateResult = async (req, res) => {
         TotalunattemptedVoter: ElectionData.voter.length - result.length,
         WinCanidate,
       };
-      //   console.log(finalResult)
+      //   //console.log(finalResult)
       await Election.findByIdAndUpdate(_id, {
         $set: { finalResult, resultCalculat: true },
       });
@@ -105,7 +105,7 @@ const handleCalculateResult = async (req, res) => {
         .status(200)
         .json({ message: `Result Date On ${rtdate.substring(0, 15)} ` });
   } catch (error) {
-    console.log("error from handleCalculateResult -> ", error);
+    //console.log("error from handleCalculateResult -> ", error);
     res.status(500).json({ message: "please try again later" });
   }
 };
@@ -120,7 +120,7 @@ const showTodayResultElection=async(req,res)=>{
           $lte: endDay}}).select("candidate type description name _id ")
           return res.status(200).json({data})
       }catch(error){
-        console.log("error from handleCalculateResult -> ", error);
+        //console.log("error from handleCalculateResult -> ", error);
         res.status(500).json({ message: "please try again later" });
 
       }
@@ -130,7 +130,7 @@ const handleAllRsult=async(req,res)=>{
     const data=await Election.find({resultCalculat:true}).select("candidate type description name _id ")
     res.status(200).json({data});
   }catch(error){
-    console.log("error from handleAllRsult -> ", error);
+    //console.log("error from handleAllRsult -> ", error);
     res.status(500).json({ message: "please try again later" });
   }
 }
@@ -143,7 +143,7 @@ const handleResult=async(req,res)=>{
     const data=await Election.findById(_id).select("type description name _id finalResult")
     res.status(200).json({data});
   }catch(error){
-    console.log("error from handleAllRsult -> ", error);
+    //console.log("error from handleAllRsult -> ", error);
     res.status(500).json({ message: "please try again later" });
   }
 }
@@ -152,7 +152,7 @@ const handleAllElection=async(req,res)=>{
     const data=await Election.find().select("type description name _id")
     res.status(200).json({data});
   }catch(error){
-    console.log("error from handleAllRsult -> ", error);
+    //console.log("error from handleAllRsult -> ", error);
     res.status(500).json({ message: "please try again later" });
   }
 }
@@ -165,7 +165,7 @@ const handleElection=async(req,res)=>{
     const data=await Election.findById(_id)
     res.status(200).json({data});
   }catch(error){
-    console.log("error from handleElection -> ", error);
+    //console.log("error from handleElection -> ", error);
     res.status(500).json({ message: "please try again later" });
   }
 }
@@ -181,23 +181,23 @@ const handleDeleteElection=async(req,res)=>{
     }
     return res.status(404).json({message:"Election not found "});
   }catch{
-    console.log("error from handleElection -> ", error);
+    //console.log("error from handleElection -> ", error);
     res.status(500).json({ message: "please try again later" });
   }
 }
 const handleUpdataElection=async(req,res)=>{
   try{
     const updatedata=req.body;
-    console.log(req.body)
+    //console.log(req.body)
     const {_id}=req.params;
     if(!_id){
       return res.status(200).json({message:"fill the all data"})
     }
     const data = await Election.updateOne({ _id },{...updatedata,isEdit:true});
-    // console.log(data)
+    // //console.log(data)
       return res.status(200).json({message:"Election update successfully "});
   }catch(error){
-    console.log("error from handleElection -> ", error);
+    //console.log("error from handleElection -> ", error);
     res.status(500).json({ message: "please try again later" });
   }
 }
@@ -206,7 +206,7 @@ const handleShowEditedElection=async(req,res)=>{
       const data=await Election.find({isEdit:true}).select("type description name _id")
       res.status(200).json({data})
     }catch(error){
-    console.log("error from handleShowEditedElection -> ", error);
+    //console.log("error from handleShowEditedElection -> ", error);
     res.status(500).json({ message: "please try again later" });
   }
 }
@@ -262,7 +262,7 @@ const handlePopulerElection=async(req,res)=>{
         ])
         res.status(200).json({data});
       }catch(error){
-        //console.log("error from handlePopulerElection -> ", error);
+        ////console.log("error from handlePopulerElection -> ", error);
         res.status(500).json({ message: "please try again later" });
       }
 }
@@ -281,7 +281,7 @@ const handleShowAdminProfile=async(req,res)=>{
     ])
     res.status(200).json({data});
   }catch(error){
-        // console.log("error from handleShowAdminProfile -> ", error);
+        // //console.log("error from handleShowAdminProfile -> ", error);
         res.status(500).json({ message: "please try again later" });
       }
 }
@@ -305,7 +305,7 @@ module.exports = {
 // const bcrypt = require("bcrypt");
 // const bt=async()=>{
 //     bcrypt.hash("admin", 10, async (err, hash) => {
-//         console.log(hash)
+//         //console.log(hash)
 //     })
 // }
 // bt()

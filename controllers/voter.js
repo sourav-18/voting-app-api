@@ -173,7 +173,7 @@ const handleVote = async (req, res) => {
     const today = new Date(new Date().getTime() + 5.5 * 60 * 60 * 1000);
     const { dateOfVotiong } = ElectionDate;
     const checkDateToVote = new Date(dateOfVotiong);
-    console.log({today,checkDateToVote})
+    // console.log({today,checkDateToVote})
     if (today < checkDateToVote) {
       res.status(200).json({
         message: `voting on ${checkDateToVote.getDate()} ${checkDateToVote.getMonth()} ${checkDateToVote.getFullYear()}`,
