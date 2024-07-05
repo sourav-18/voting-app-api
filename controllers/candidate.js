@@ -6,7 +6,7 @@ const Election = require("../model/election");
 //addnewCandidate in database
 const handleAddNewCandidate = async (req, res) => {
   try {
-    console.log("enter");
+    //console.log("enter");
     const {
       name,
       email,
@@ -32,7 +32,7 @@ const handleAddNewCandidate = async (req, res) => {
     }
     bcrypt.hash(password, 10, async (err, hash) => {
       if (err) {
-        console.log("error from password hashing candidate ", err);
+        //console.log("error from password hashing candidate ", err);
         return res
           .status(500)
           .json({ message: "something worng try aganin later" });
@@ -46,11 +46,11 @@ const handleAddNewCandidate = async (req, res) => {
         aboutCandidate,
         password: hash,
       });
-      console.log(candidateData);
+      //console.log(candidateData);
       return res.status(201).json({ message: "Candidate successfuly added" ,success:true});
     });
   } catch (error) {
-    console.log("error from handleAddCandidate", error);
+    //console.log("error from handleAddCandidate", error);
     return res
       .status(500)
       .json({ message: "something worng try aganin later" });
@@ -100,7 +100,7 @@ const time=Date.now()
       await session.commitTransaction();
   } catch (error) {
     await session.abortTransaction();
-    console.log("error from handleaddCandidateInfo", error);
+    //console.log("error from handleaddCandidateInfo", error);
     return res
       .status(500)
       .json({ message: "something worng try aganin later" });
@@ -116,7 +116,7 @@ const handleCandidateLogin = async (req, res) => {
     if (!aadharNumber || !password)
       return res.status(400).json({ message: "fill the data correctly" });
     const candidate = await Candidate.findOne({ aadharNumber });
-    console.log({aadharNumber})
+    //console.log({aadharNumber})
     if (!candidate) {
       return res.status(400).json({ message: "candidate not exist" });
     }
@@ -135,7 +135,7 @@ const handleCandidateLogin = async (req, res) => {
       }
     });
   }catch(error) {
-    console.log("error from candidateHandler login ",error)
+    //console.log("error from candidateHandler login ",error)
     return res
     .status(500)
     .json({ message: "something worng try aganin later" });
@@ -147,7 +147,7 @@ const handleCandidateCurrentElection=async (req,res)=>{
     const electionData=await Election.find().where("periodOfTimeCandidateRegistration.endTime").gt(today).select("candidate resultDate dateOfVotiong periodOfTimeCandidateRegistration type description name _id")
     res.status(200).json({electionData})
 }catch(error){
-    console.log("error from handleCandidateCurrentElection -> ",error);
+    //console.log("error from handleCandidateCurrentElection -> ",error);
     res.status(500).json({message:"try again latter!"})
 }
 
@@ -158,7 +158,7 @@ const handleShowRegisterElectionCandidate=async(req,res)=>{
       const data=await Election.find({ "candidate.aadharNumber": aadharNumber }).select("candidate resultDate type description name _id resultCalculat dateOfVotiong")
       res.status(200).json({data})
   }catch(error){
-      console.log("error from candidatae handleRegisterElection -> ",error);
+      //console.log("error from candidatae handleRegisterElection -> ",error);
       res.status(500).json({message:"try again latter!"})
   }
 }
@@ -174,7 +174,7 @@ const handleLiveResult=async(req,res)=>{
       $lte: endDay}}).where("candidate.aadharNumber").equals(aadharNumber).select("candidate type description name _id ")
       return res.status(200).json({data})
 }catch(error){
-    console.log("error from candidatae handleLiveResult -> ",error);
+    //console.log("error from candidatae handleLiveResult -> ",error);
     res.status(500).json({message:"try again latter!"})
 }
 }
@@ -188,7 +188,7 @@ const handleWinElection=async(req,res)=>{
       }).select("type description name _id ")
       res.status(200).json({data});
   }catch(error){
-    console.log("error from candidatae handleWinElection -> ",error);
+    //console.log("error from candidatae handleWinElection -> ",error);
     res.status(500).json({message:"try again latter!"})
   }
 }
@@ -201,7 +201,7 @@ const handleRemoveNameFromElection=async(req,res)=>{
     }
   const data=await  Election.updateOne(   { _id },
   { $pull: { candidate: { aadharNumber } } })
-  console.log(data)
+  //console.log(data)
   const data2=await Candidate.updateOne({aadharNumber},{$pull:{votingInfo:{electionId:_id}}})
   if(data.acknowledged&&data.modifiedCount&&data2.acknowledged&&data2.modifiedCount){
     return res.status(200).json({message:"Successfully removed the name from the election"});
@@ -210,7 +210,7 @@ const handleRemoveNameFromElection=async(req,res)=>{
   return res.status(404).json({message:"election not found"})
 
   }catch (error) {
-      console.log("error from  voter handleRemoveNameFromElection -> ", error);
+      //console.log("error from  voter handleRemoveNameFromElection -> ", error);
       res.status(500).json({ message: "try again latter!" });
     }
 }
@@ -222,7 +222,7 @@ const handleShowCandidateData = async (req, res) => {
     );
     res.json({ data });
   } catch (error) {
-    console.log("error from handleShowCandidateData-> ", error);
+    //console.log("error from handleShowCandidateData-> ", error);
     res.status(500).json({ message: "try again latter!" });
   }
 };

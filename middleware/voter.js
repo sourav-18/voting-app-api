@@ -20,7 +20,7 @@ const isvalidVoter=async(req,res,next)=>{
           next();
         })
     }catch(error){
-        console.log("error from isvalidVoter in middleware --> ", error);
+        //console.log("error from isvalidVoter in middleware --> ", error);
         return res
         .status(500)
         .json({ message: "something worng try aganin later" });

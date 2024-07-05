@@ -16,7 +16,7 @@ const handleAddNewVoter = async (req, res) => {
     }
     bcrypt.hash(password, 10, async (err, hash) => {
       if (err) {
-        console.log("error from password hashing ", err);
+        //console.log("error from password hashing ", err);
         return res
           .status(500)
           .json({ message: "something worng try aganin later" });
@@ -28,11 +28,11 @@ const handleAddNewVoter = async (req, res) => {
         aadharNumber,
         password: hash,
       });
-      console.log(voterdata);
+      //console.log(voterdata);
       return res.status(201).json({ message: "voter successfuly added",success:true });
     });
   } catch (error) {
-    console.log("error from handleAddVoter", error);
+    //console.log("error from handleAddVoter", error);
     return res
       .status(500)
       .json({ message: "something worng try aganin later" });
@@ -106,7 +106,7 @@ const handleRegisterInElection = async (req, res) => {
     await session.commitTransaction();
   } catch (error) {
     await session.abortTransaction();
-    console.log("error from handleaddvotionInfo", error);
+    //console.log("error from handleaddvotionInfo", error);
     return res
       .status(500)
       .json({ message: "something worng try aganin later" });
@@ -139,7 +139,7 @@ const handleVoterLogin = async (req, res) => {
       }
     });
   } catch (error) {
-    console.log("error from voter loginHandler ", error);
+    //console.log("error from voter loginHandler ", error);
     return res
       .status(500)
       .json({ message: "something worng try aganin later" });
@@ -170,9 +170,10 @@ const handleVote = async (req, res) => {
       return res
         .status(200)
         .json({ message: "you have already done your valueable vote" });
-    const today = new Date(Date.now());
+    const today = new Date(new Date().getTime() + 5.5 * 60 * 60 * 1000);
     const { dateOfVotiong } = ElectionDate;
     const checkDateToVote = new Date(dateOfVotiong);
+    console.log({today,checkDateToVote})
     if (today < checkDateToVote) {
       res.status(200).json({
         message: `voting on ${checkDateToVote.getDate()} ${checkDateToVote.getMonth()} ${checkDateToVote.getFullYear()}`,
@@ -225,7 +226,7 @@ const handleVote = async (req, res) => {
     await session.commitTransaction();
   } catch (error) {
     await session.abortTransaction();
-    console.log("error from voter handlevote ", error);
+    //console.log("error from voter handlevote ", error);
     return res
       .status(500)
       .json({ message: "something worng try aganin later" });
@@ -245,7 +246,7 @@ const handleShowTodayVote=async(req,res)=>{
       $lte: endDay}}).where("voter.aadharNumber").equals(aadharNumber).select("candidate resultDate  type description name _id ")
       return res.status(200).json({data})
   }catch(error){
-    console.log("error from voter handleShowTodayVote ", error);
+    //console.log("error from voter handleShowTodayVote ", error);
     return res
     .status(500)
     .json({ message: "something worng try aganin later" });

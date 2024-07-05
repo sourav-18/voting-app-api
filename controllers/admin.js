@@ -262,7 +262,7 @@ const handlePopulerElection=async(req,res)=>{
         ])
         res.status(200).json({data});
       }catch(error){
-        console.log("error from handlePopulerElection -> ", error);
+        //console.log("error from handlePopulerElection -> ", error);
         res.status(500).json({ message: "please try again later" });
       }
 }
@@ -281,7 +281,7 @@ const handleShowAdminProfile=async(req,res)=>{
     ])
     res.status(200).json({data});
   }catch(error){
-        console.log("error from handleShowAdminProfile -> ", error);
+        // console.log("error from handleShowAdminProfile -> ", error);
         res.status(500).json({ message: "please try again later" });
       }
 }

@@ -8,7 +8,7 @@ const handleShowVoterData = async (req, res) => {
     );
     res.json({ data });
   } catch (error) {
-    console.log("error from handleShowVoterData-> ", error);
+    //console.log("error from handleShowVoterData-> ", error);
     res.status(500).json({ message: "try again latter!" });
   }
 };
@@ -22,7 +22,7 @@ const handleShowRegisterVote = async (req, res) => {
     );
     res.status(200).json({ message: aadharNumber, data: RegisterVotingData });
   } catch (error) {
-    console.log("error from handleShowRegisterVote-> ", error);
+    //console.log("error from handleShowRegisterVote-> ", error);
     res.status(500).json({ message: "try again latter!" });
   }
 };
@@ -38,7 +38,7 @@ const handleUpcomingElection = async (req, res) => {
       );
     res.status(200).json({ electionData });
   } catch (error) {
-    console.log("error from handleShowUpcomingElection -> ", error);
+    //console.log("error from handleShowUpcomingElection -> ", error);
     res.status(500).json({ message: "try again latter!" });
   }
 };
@@ -53,7 +53,7 @@ const handleShowRegisterElection = async (req, res) => {
 
     res.status(200).json({ data });
   } catch (error) {
-    console.log("error from  voter handleRegisterElection -> ", error);
+    //console.log("error from  voter handleRegisterElection -> ", error);
     res.status(500).json({ message: "try again latter!" });
   }
 };
@@ -76,7 +76,7 @@ const handleShowUnattemptedVote = async (req,res) => {
       );
     res.status(200).json({ data });
   } catch (error) {
-    console.log("error from  voter handleRegisterElection -> ", error);
+    //console.log("error from  voter handleRegisterElection -> ", error);
     res.status(500).json({ message: "try again latter!" });
   }
 };
@@ -89,14 +89,14 @@ const handleRemoveNameFromElection=async(req,res)=>{
     }
   const data=await  Election.updateOne(   { _id },
   { $pull: { voter: { aadharNumber } } })
-  console.log(data)
+  //console.log(data)
   const data2=await Voter.updateOne({aadharNumber},{$pull:{votingInfo:{electionId:_id}}})
   if(data.acknowledged&&data.modifiedCount&&data2.acknowledged&&data2.modifiedCount){
     return res.status(200).json({message:"Successfully removed the name from the election"});
   }
   return res.status(404).json({message:"election not found"})
   }catch (error) {
-      console.log("error from  voter handleRemoveNameFromElection -> ", error);
+      //console.log("error from  voter handleRemoveNameFromElection -> ", error);
       res.status(500).json({ message: "try again latter!" });
     }
 }

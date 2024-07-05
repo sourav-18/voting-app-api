@@ -19,22 +19,22 @@ const electionSchema=new mongoose.Schema({
             require:true
         },
         periodOfTimeCandidateRegistration:{
-            type:{startTime:Number,endTime:Number},
+            type:{startTime:Date,endTime:Date},
             default:{startTime:Date.now(),endTime:Date.now()+(3 * 24 * 60 * 60 * 1000)} //rnge between date like 2fb to 5 feb
         },
         periodOfTimeVoterRegistration:{
-            type:{startTime:Number,endTime:Number},
+            type:{startTime:Date,endTime:Date},
             default:{startTime:Date.now()+(3 * 24 * 60 * 60 * 1000),endTime:Date.now()+(7 * 24 * 60 * 60 * 1000)} //rnge between date like 5fb to 9 feb
         },
         dateOfVotiong:{
-            type:Number,
+            type:Date,
             default:Date.now()+(10 * 24 * 60 * 60 * 1000)
         },
         result:{
             type:[{candidateName:String,candidateAadharNumber:String,voterAadharNumber:String,time:Number}]
         },
         resultDate:{
-                type:Number,
+                type:Date,
                 default:Date.now()+(12 * 24 * 60 * 60 * 1000)
         },
         finalResult:{
